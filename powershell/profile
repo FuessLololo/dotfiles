@@ -1,0 +1,11 @@
+
+if (Test-Path "C:\Users\15032\.jabba\jabba.ps1") { . "C:\Users\15032\.jabba\jabba.ps1" }
+
+# Import PSReadLine module automatically
+Import-Module PSReadLine
+
+# Set Tab completion to show all possibilities on second Tab hit
+# Set-PSReadLineOption -CompletionQueryCommand MenuAndList
+
+# Use emacs editmode keybinds
+Set-PSReadLineOption -EditMode Emacs
