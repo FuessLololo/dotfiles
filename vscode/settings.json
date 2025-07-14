@@ -1,0 +1,38 @@
+{
+    "workbench.colorTheme": "Mayukai Alucard",
+    "workbench.iconTheme": "material-icon-theme",
+    "telemetry.telemetryLevel": "off",
+    "redhat.telemetry.enabled": false,
+    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
+    "terminal.integrated.scrollback": 80000,
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active",
+    "gitlab.instanceUrl": "https://git.mujin.co.jp",
+    "cmake.options.statusBarVisibility": "visible",
+    "git.autofetch": true,
+    "[python]": {
+        "diffEditor.ignoreTrimWhitespace": false
+    },
+    "cmake.configureOnOpen": true,
+    "privy.providerBaseUrl": "http://127.0.0.1:8080",
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false,
+        "python": true
+    },
+    "cmake.pinnedCommands": [
+        "workbench.action.tasks.configureTaskRunner",
+        "workbench.action.tasks.runTask"
+    ],
+    "go.toolsManagement.autoUpdate": true,
+    "gitlab.duoCodeSuggestions.additionalLanguages": [
+        "json"
+    ],
+    "git.openRepositoryInParentFolders": "never",
+    "terminal.integrated.allowChords": false,
+    "makefile.configureOnOpen": true,
+    "docker.extension.enableComposeLanguageServer": false
+}
