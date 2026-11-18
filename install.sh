@@ -12,7 +12,7 @@ STOW_PACKAGES=(bash tmux vim nvim bin kde env)
 # Directories that should be one symlink to the repo, not a folder of per-file links.
 FOLD_DIRS=(.config/nvim)
 PLASMA_TOKYO_NIGHT_REPO=https://github.com/Jayy-Dev/Plasma-Tokyo-Night.git
-PLASMA_TOKYO_NIGHT_COMMIT=aed7e9f   # plasma-6 branch, 2026-11-07
+PLASMA_TOKYO_NIGHT_COMMIT=aed7e9faf9bc7ea6b6bbc8e21b5475bdda2412c7   # plasma-6 branch, 2026-11-07
 NERD_FONT_URL=https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
 
 say()  { printf '\033[1;34m==>\033[0m %s\n' "$*"; }
@@ -27,7 +27,9 @@ step_packages() {
     case "$ID" in
         fedora)
             say "dnf install (Fedora)"
-            sudo dnf install -y --skip-unavailable "${common[@]}" fd-find kcm-fcitx5 qt6-qtmultimedia ;;
+            sudo dnf install -y --skip-unavailable "${common[@]}" fd-find qt6-qtmultimedia
+            # Separate: Fedora's build can lag libplasma and fail the whole transaction.
+            sudo dnf install -y kcm-fcitx5 || warn "dnf: could not install kcm-fcitx5 (fcitx5-configtool works too)" ;;
         debian|ubuntu)
             say "apt install ($ID)"
             sudo apt-get update
@@ -83,8 +85,14 @@ step_link() {
             backup_if_real "$HOME/$rel"
         done < <(cd "$DOTFILES" && find "$pkg" \( -type f -o -type l \) -not -path '*/.config/nvim/*')
     done
+    # --no-folding: shared dirs like ~/.local/bin must stay real, or other tools write into the repo.
+    local -a fold=() nofold=()
+    for pkg in "${STOW_PACKAGES[@]}"; do
+        if [ -d "$DOTFILES/$pkg/.config/nvim" ]; then fold+=("$pkg"); else nofold+=("$pkg"); fi
+    done
     say "stow ${STOW_PACKAGES[*]}"
-    stow --dir="$DOTFILES" --target="$HOME" --restow "${STOW_PACKAGES[@]}"
+    stow --dir="$DOTFILES" --target="$HOME" --restow --no-folding "${nofold[@]}"
+    [ ${#fold[@]} -eq 0 ] || stow --dir="$DOTFILES" --target="$HOME" --restow "${fold[@]}"
 }
 
 # ---------------------------------------------------------------- tmux

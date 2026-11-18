@@ -8,10 +8,10 @@ case $- in
       *) return;;
 esac
 
-# Start inside tmux, except in VS Code's terminal or when already in tmux.
-if command -v tmux &>/dev/null && [ -z "$TMUX" ] && [ "$TERM" != "screen" ] && [ "$TERM_PROGRAM" != "vscode" ]; then
-    tmux attach-session -t default || tmux new-session -s default
-fi
+# Start inside tmux only in Konsole (VS Code inherits KONSOLE_VERSION when launched from it).
+# if command -v tmux &>/dev/null && [ -z "$TMUX" ] && [ -n "$KONSOLE_VERSION" ] && [ "$TERM_PROGRAM" != "vscode" ]; then
+#     tmux attach-session -t default || tmux new-session -s default
+# fi
 
 # ---------------- history ----------------
 HISTCONTROL=ignoreboth
@@ -59,7 +59,7 @@ path_prepend "$HOME/go/bin"
 export PATH
 
 # ---------------- tools ----------------
-export EDITOR=nvim
+export EDITOR=vim
 export LESS="-FRX --mouse --wheel-lines=3"
 
 alias docker-compose="docker compose"
