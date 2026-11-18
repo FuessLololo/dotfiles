@@ -144,6 +144,9 @@ step_kde() {
 
     say "Konsole default profile"
     kwriteconfig6 --file konsolerc --group "Desktop Entry" --key DefaultProfile Default.profile
+
+    say "mouse wheel: 5 lines per step"
+    kwriteconfig6 --file kdeglobals --group KDE --key WheelScrollLines 5
 }
 
 # ---------------------------------------------------------------- system (sudo)
