@@ -1,0 +1,9 @@
+#! /usr/bin/env bash
+
+pattern=${1:?Usage: select-column PATTERN}
+row=${2:-1}
+
+awk -v pattern="$pattern" -v row="$row" '
+  NR==row {for (i=1;i<=NF;i++) if ($i ~ pattern) flag[i]=1 }
+  {for (i=1;i<=NF;i++) if (flag[i]) print $i}
+'

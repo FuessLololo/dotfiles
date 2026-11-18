@@ -1,0 +1,4 @@
+# Machine-local files and secrets never go in this public repo.
+# (Not "*.local": that would also ignore the packages' .local/ directories.)
+.bashrc.local
+*.pre-dotfiles.*
