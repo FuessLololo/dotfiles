@@ -131,7 +131,7 @@ step_kde() {
 
     plasma-apply-colorscheme TokyoNight || true
     plasma-apply-desktoptheme Tokyo-Night || true
-    kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key library org.kde.kwin.aurorae
+    kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key library org.kde.kwin.aurorae.v2
     kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key theme __aurorae__svg__TokyoNight
     local qdbus; qdbus="$(command -v qdbus6 || command -v qdbus-qt6 || true)"
     [ -n "$qdbus" ] && "$qdbus" org.kde.KWin /KWin reconfigure || true
